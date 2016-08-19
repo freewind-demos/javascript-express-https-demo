@@ -33,9 +33,6 @@ app.get('/users', function(req, res) {
   res.send(users);
 })
 
-const server = app.listen(3000, function () {
-  const host = server.address().address;
-  const port = server.address().port;
-
-  console.log('Example app listening at http://%s:%s', host, port);
+app.listen(3000, function () {
+  console.log('Listening on 3000');
 });
