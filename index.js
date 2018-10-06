@@ -1,38 +1,27 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const https = require('https');
+const fs = require('fs');
 
 const app = express();
 
+app.use(express.json());
 
-// for parsing application/json
-app.use(bodyParser.json());
-
-// for parsing application/x-www-form-urlencoded
-// extended
-// - true: use https://www.npmjs.com/package/qs
-// - false: use https://www.npmjs.com/package/querystring
-app.use(bodyParser.urlencoded({ extended: true }));
-
-const users = [];
+app.use(express.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Hello http & https!');
 });
 
-app.post('/user', function(req, res) {
-  const name = req.body.name;
-  const email = req.body.email;
-  users.push({
-  	name: name,
-  	email: email
-  })
-  res.sendStatus(201);
-});
-
-app.get('/users', function(req, res) {
-  res.send(users);
-})
+const httpServer = https.createServer({
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+}, app);
 
 app.listen(3000, function () {
-  console.log('Listening on 3000');
+  console.log('http://localhost:3000');
 });
+
+httpServer.listen(8443, function () {
+  console.log('https://localhost:8443');
+});
+
