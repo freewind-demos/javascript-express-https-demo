@@ -3,10 +3,10 @@
     "start": "node index.js"
   },
   "devDependencies": {
-    "express": "^4.16.3"
+    "express": "4.16.3"
   },
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "4.16.3",
     "https": "1.0.0"
   }
 }
